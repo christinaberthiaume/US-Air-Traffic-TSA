@@ -39,7 +39,7 @@ After cleaning the data, we plotted histograms (see Figure 1 in Appendix) to tak
 
 We also plotted each of the variables over the months so we could try to identify if there is any seasonality in the data. These plots can be seen in Figure 4 of the Appendix. There does seem to be seasonality where you’d expect it. Air travel starts to pick up in the spring and peaks in the summer, dropping off again around September, and finally picking up again during the holidays. This can also be seen in the month-wise box plots we created (see Figure 2). In the year-wise box plots, you can see an overall positive trend (not including the years 2020 and 2021). Finally, we created a correlation matrix (see Figure 3 in the Appendix) to see how the features are related to each other. As we could already tell from the plots, the Number of Passengers is correlated to the Revenue Passenger-Miles, the Available Seat-Miles, and the Load Factor. This makes sense since these variables are all dependent on the number of passengers.
 
-![image](https://github.com/user-attachments/assets/3d7ab5f2-318d-4047-93aa-95d92e2d8e22)
+![image](Picture2.png)
 
 Based on this EDA, we will be using the number of passengers as our target variable as it represents our research question most accurately.
 
@@ -54,9 +54,9 @@ We have decided to use an Autoregressive Integrated Moving Average (ARIMA) model
 
 Before creating our forecasting model, let’s decompose the data into trend, seasonality, and residuals. The results of this decomposition are shown below in Figure 3. The COVID-19 outliers make it difficult to tell, but it looks like the residuals are fairly random. There is definitely both trend and seasonality present in the data. Due to this, we will use the Seasonal ARIMA model (SARIMA) to build our forecasting model.
 
-![image](https://github.com/user-attachments/assets/1765a0bb-6771-464d-979f-9968854121ac)
+![image](Picture3.png)
 
-![image](https://github.com/user-attachments/assets/87eaf9cf-9b18-4ecf-be1b-2a44297bf8eb)
+![image](Picture4.png)
 
 As you can see, these outliers are skewing our data distribution and making it difficult to come to conclusions. In order to fix this, we are going to find all the outliers and replace them with the average number of passengers for that month (excluding the outliers). 
 
@@ -82,11 +82,11 @@ The results of our SARIMA model can be seen in Table 1 of the Appendix. The resi
 
 Let’s see how the forecasted values look compared to the actual values. Figure 5 below shows the actual number of passengers versus the forecast from our SARIMA model.
 
-![image](https://github.com/user-attachments/assets/c60cc7cf-9f05-4e3b-9dee-b8977065a6c8)
+![image](Picture5.png)
 
 As you can see, the model does fairly well on the training data, but is a bit off with the test data. What is more concerning is the size of the confidence interval that the model produces. Let’s take a look at how the LSTM model does at forecasting our data. The actual number of passengers versus the forecasted number of passengers is shown in Figure 6 below. This model also does fairly well. It is able to capture the pattern and trends of the data, however, the forecasted number of passengers is less than the actual number of passengers for a majority of the data.
 
-![image](https://github.com/user-attachments/assets/04c8b948-93e0-4e19-ba68-f26d5352fb41)
+![image](Picture6.png)
 
 Our LSTM model achieves a MAPE of 13.4% on the training data and a MAPE of 6.5% on the test data. The difference in these values (normally the train would be smaller) might be due to the size of our test set. It might have been better to test on a larger sample, but we didn't want the COVID-19 data to be in the test set. Finally, we plotted the loss to ensure that the neural network was converging. This plot can be seen in Figure 6 in the Appendix.
 
